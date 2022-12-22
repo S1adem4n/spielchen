@@ -123,33 +123,41 @@ class Santa(PhysicsObject):
                   self.image_y, self.width, self.height)
 
     def move(self):
-        if pyxel.btn(pyxel.KEY_UP) and pyxel.btn(pyxel.KEY_RIGHT):
+        if (
+            (pyxel.btn(pyxel.KEY_UP) and pyxel.btn(pyxel.KEY_RIGHT))
+            or (pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_UP) and pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_RIGHT))):
             self.y -= self.move_speed_y
             self.x += self.move_speed_x
             self.direction = Direction.NORTH_EAST
-        elif pyxel.btn(pyxel.KEY_DOWN) and pyxel.btn(pyxel.KEY_RIGHT):
+        elif (
+            (pyxel.btn(pyxel.KEY_DOWN) and pyxel.btn(pyxel.KEY_RIGHT)
+            or (pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_DOWN) and pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_RIGHT)))):
             self.y += self.move_speed_y
             self.x += self.move_speed_x
             self.direction = Direction.SOUTH_EAST
-        elif pyxel.btn(pyxel.KEY_UP) and pyxel.btn(pyxel.KEY_LEFT):
+        elif (
+            (pyxel.btn(pyxel.KEY_UP) and pyxel.btn(pyxel.KEY_LEFT))
+            or (pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_UP) and pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_LEFT))):
             self.y -= self.move_speed_y
             self.x -= self.move_speed_x
             self.direction = Direction.NORTH_WEST
-        elif pyxel.btn(pyxel.KEY_DOWN) and pyxel.btn(pyxel.KEY_LEFT):
+        elif (
+            (pyxel.btn(pyxel.KEY_DOWN) and pyxel.btn(pyxel.KEY_LEFT))
+            or (pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_DOWN) and pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_LEFT))):
             self.y += self.move_speed_y
             self.x -= self.move_speed_x
             self.direction = Direction.SOUTH_WEST
-        elif pyxel.btn(pyxel.KEY_UP):
+        elif pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_UP):
             self.y -= self.move_speed_y
             self.direction = Direction.NORTH
-        elif pyxel.btn(pyxel.KEY_DOWN):
+        elif pyxel.btn(pyxel.KEY_DOWN) or pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_DOWN):
             self.y += self.move_speed_y
             self.direction = Direction.SOUTH
-        elif pyxel.btn(pyxel.KEY_LEFT):
+        elif pyxel.btn(pyxel.KEY_LEFT) or pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_LEFT):
             self.x -= self.move_speed_x
             self.width = -abs(self.width)
             self.direction = Direction.WEST
-        elif pyxel.btn(pyxel.KEY_RIGHT):
+        elif pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_RIGHT):
             self.x += self.move_speed_x
             self.width = abs(self.width)
             self.direction = Direction.EAST
