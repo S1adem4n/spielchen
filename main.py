@@ -125,39 +125,39 @@ class Santa(PhysicsObject):
     def move(self):
         if (
             (pyxel.btn(pyxel.KEY_UP) and pyxel.btn(pyxel.KEY_RIGHT))
-            or (pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_UP) and pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_RIGHT))):
+            or (pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_UP) and pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_RIGHT))):
             self.y -= self.move_speed_y
             self.x += self.move_speed_x
             self.direction = Direction.NORTH_EAST
         elif (
             (pyxel.btn(pyxel.KEY_DOWN) and pyxel.btn(pyxel.KEY_RIGHT)
-            or (pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_DOWN) and pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_RIGHT)))):
+            or (pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN) and pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_RIGHT)))):
             self.y += self.move_speed_y
             self.x += self.move_speed_x
             self.direction = Direction.SOUTH_EAST
         elif (
             (pyxel.btn(pyxel.KEY_UP) and pyxel.btn(pyxel.KEY_LEFT))
-            or (pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_UP) and pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_LEFT))):
+            or (pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_UP) and pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_LEFT))):
             self.y -= self.move_speed_y
             self.x -= self.move_speed_x
             self.direction = Direction.NORTH_WEST
         elif (
             (pyxel.btn(pyxel.KEY_DOWN) and pyxel.btn(pyxel.KEY_LEFT))
-            or (pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_DOWN) and pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_LEFT))):
+            or (pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN) and pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_LEFT))):
             self.y += self.move_speed_y
             self.x -= self.move_speed_x
             self.direction = Direction.SOUTH_WEST
-        elif pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_UP):
+        elif pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_UP):
             self.y -= self.move_speed_y
             self.direction = Direction.NORTH
-        elif pyxel.btn(pyxel.KEY_DOWN) or pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_DOWN):
+        elif pyxel.btn(pyxel.KEY_DOWN) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN):
             self.y += self.move_speed_y
             self.direction = Direction.SOUTH
-        elif pyxel.btn(pyxel.KEY_LEFT) or pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_LEFT):
+        elif pyxel.btn(pyxel.KEY_LEFT) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_LEFT):
             self.x -= self.move_speed_x
             self.width = -abs(self.width)
             self.direction = Direction.WEST
-        elif pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.GAMEPAD2_BUTTON_DPAD_RIGHT):
+        elif pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_RIGHT):
             self.x += self.move_speed_x
             self.width = abs(self.width)
             self.direction = Direction.EAST
@@ -202,7 +202,7 @@ class Santa(PhysicsObject):
         if self.time_delta > self.cooldown-0.8:
             self.image_x = 8
             self.image_y = 8
-        if pyxel.btn(pyxel.KEY_SPACE):
+        if pyxel.btn(pyxel.KEY_SPACE) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_A):
             if self.time_delta > self.cooldown:
                 self.image_x = 0
                 self.image_y = 8
@@ -320,12 +320,6 @@ class App:
             self.level += 1
             self.presents.clear()
             self.create_enemys()
-        if len(self.hearts) == 0:
-            pyxel.play(0, 0)
-            pyxel.cls(0)
-            pyxel.text(pyxel.width//2.75, pyxel.height//2.5, "GAME OVER", 7)
-            pyxel.text(pyxel.width//2.5, pyxel.height//2, f"LEVEL {self.level}", 7)
-            pyxel.show()
         if self.time_delta > self.game_speed:
             self.santa.update()
             present: Present
@@ -350,6 +344,12 @@ class App:
             position_x += 9
             
     def draw(self) -> None:
+        if len(self.hearts) == 0:
+            pyxel.play(0, 0)
+            pyxel.cls(0)
+            pyxel.text(pyxel.width//2.75, pyxel.height//2.5, "GAME OVER", 7)
+            pyxel.text(pyxel.width//2.5, pyxel.height//2, f"LEVEL {self.level}", 7)
+            pyxel.show()
         pyxel.cls(0)
         pyxel.bltm(0, 0, 0, 0, 0, pyxel.width, pyxel.height)
         self.santa.draw()
